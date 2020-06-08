@@ -2534,12 +2534,7 @@ public enum Subspecies {
 			"slime",
 			"Due to [npc.her] soft, slimy body, [npc.nameIsFull] almost completely immune to physical damage, but [npc.she] is also unable to inflict any serious unarmed damage."
 					+ " [npc.She] can also morph [npc.her] body at will, allowing [npc.herHim] to take on any form that [npc.she] [npc.verb(desire)].",
-			Util.newHashMapOfValues(
-					new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, 0f),
-					new Value<Attribute, Float>(Attribute.MAJOR_ARCANE, 0f),
-					new Value<Attribute, Float>(Attribute.MAJOR_CORRUPTION, 25f),
-					new Value<Attribute, Float>(Attribute.RESISTANCE_PHYSICAL, 100f),
-					new Value<Attribute, Float>(Attribute.DAMAGE_UNARMED, -100f)),
+			null,
 			Util.newArrayListOfValues(
 					"<b style='color: "+ PresetColour.TRANSFORMATION_GENERIC.toWebHexString()+ ";'>Can morph body at will</b>",
 					"<b style='color: "+ PresetColour.GENERIC_SEX.toWebHexString()+ ";'>Impregnated through any orifice</b>"),
@@ -2583,6 +2578,27 @@ public enum Subspecies {
 				}
 			}
 			return super.getStatusEffectDescription(character);
+		}
+		
+		@Override
+		public Map<Attribute, Float> getStatusEffectAttributeModifiers(GameCharacter character) {
+			if(character!=null) {
+				if(character.getSubspeciesOverrideRace()==Race.DEMON) {
+					return Util.newHashMapOfValues(
+							new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, 25f),
+							new Value<Attribute, Float>(Attribute.MAJOR_ARCANE, 30f),
+							new Value<Attribute, Float>(Attribute.MAJOR_CORRUPTION, 100f),
+							new Value<Attribute, Float>(Attribute.SPELL_COST_MODIFIER, 25f),
+							new Value<Attribute, Float>(Attribute.DAMAGE_LUST, 25f),
+							new Value<Attribute, Float>(Attribute.DAMAGE_SPELLS, 75f),
+							new Value<Attribute, Float>(Attribute.RESISTANCE_PHYSICAL, 100f),
+							new Value<Attribute, Float>(Attribute.DAMAGE_UNARMED, -100f));
+				}
+			}
+			return Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.MAJOR_CORRUPTION, 25f),
+					new Value<Attribute, Float>(Attribute.RESISTANCE_PHYSICAL, 100f),
+					new Value<Attribute, Float>(Attribute.DAMAGE_UNARMED, -100f));
 		}
 		
 		@Override
